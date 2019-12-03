@@ -1,0 +1,91 @@
+import java.util.*;
+
+class ElevatorTest{
+	public static void main(String [] args) throws Exception{
+		Scanner s = new Scanner(System.in);
+		int floor, time=0, tmp=0;
+		boolean door=false;
+		Elevator E1 = new Elevator();
+		
+		do{
+			System.out.print("몇층으로 갈까요? ");
+			floor = s.nextInt();
+			E1.open();
+			E1.move(floor);
+			E1.report();
+			E1.open();
+			time++;
+			tmp = floor;
+		}while(time<=5);
+	}
+}
+
+class Elevator{
+	//필드
+	static int floor;
+	static boolean door;
+	static int tmp=0;
+	//메소드
+	void open(){
+		if(door == false){
+			System.out.println("문이 닫힙니다.");
+			door=true;
+		}
+		else{
+			System.out.println("문이 열립니다.");
+			door=false;
+		}
+	}
+	void move(int floor){
+		if(floor>=-2&&floor<=10){
+			if(floor>0){
+				System.out.printf("%d층으로 이동합니다.\n", floor);
+			}
+			else{
+				System.out.printf("지하 %d층으로 이동합니다.\n", -floor);
+			}
+		}
+		else{
+			System.out.print("유효한 층수를 입력해주세요: \n");
+		}
+	}
+	void report() throws Exception{
+		if(floor>=-2&&floor<=10){
+			if(floor>0){
+				for(int i=tmp; i<=floor; i++){
+					if(i==0){
+						System.out.print("L  ");
+						Thread.sleep(1500);
+					}
+					else if(i>0){
+						System.out.printf("%d  ", i);
+						Thread.sleep(1500);
+					}
+					else if(i<0){
+						System.out.printf("B%d  ", -i);
+						Thread.sleep(1500);
+					}
+					tmp = floor;
+				}
+			}
+			else{
+				for(int i=tmp; i>=floor; i--){
+					if(i==0){
+						System.out.print("L  ");
+						Thread.sleep(1500);
+					}
+					else if(i>0){
+						System.out.printf("%d  ", i);
+						Thread.sleep(1500);
+					}
+					else if(i<0){
+						System.out.printf("B%d  ", -i);
+						Thread.sleep(1500);
+					}
+					tmp = floor;
+				}
+			}
+			System.out.println();
+		}
+	}
+}
