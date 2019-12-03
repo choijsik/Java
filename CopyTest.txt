@@ -1,0 +1,42 @@
+//파일 복사프로그램
+import java.io.*;
+import java.util.*;
+/*
+	java CopyTest 원본파일 복사본파일 커맨드라인에 입력받기
+	1. 커맨드라인에서 원본파일, 복사본파일 입력받기.
+	2. 사용자가 커맨드라인에 입력2개를 하지 않으면 알려주고 종료 
+	3. 원본파일이 존재하지 않는다면 이를 알리고 종료
+	4. 복사본파일이 이미 존재한다면 이를 알리고 종료
+	5. 원본을 복사본에 복사하고 콘솔창에 복사완료라고 띄울것
+*/
+class CopyTest{
+	public static void main(String [] args) throws Exception{
+		if(args.length<2){
+			System.out.println("[usage] java Copy Test 원본파일 복사본파일 입력");
+			return;
+		}
+		File f1 = new File(args[0]);
+		File f2 = new File(args[1]);
+		
+		if(f2.exists()==true){
+			System.out.println("복사본 파일이 이미 존재한다.");
+			return;
+		}
+		PrintWriter pw1 = new PrintWriter(f2);
+		
+		Scanner s = new Scanner(f1);
+		
+		if(f1.exists()==false){
+			System.out.println(f1.getName()+"원본 파일이 존재하지 않는다.");
+			System.exit(1);
+		}
+		
+		
+		while(s.hasNext()){//뒤에 읽어올게 있으면 계속 읽어와라
+			pw1.printf("%s\r\n", s.nextLine());
+		}
+		pw1.close();
+		s.close();
+		System.out.println("파일 복사 완료 파일을 확인해보세요. ");
+	}
+}

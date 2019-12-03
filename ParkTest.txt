@@ -1,0 +1,74 @@
+import java.util.*;
+
+class Vehicle{
+	protected int wheel;
+	protected int dist;
+	
+	Vehicle(){
+		this(4, 0);
+	}
+	Vehicle(int Wheel, int dist){
+		this.wheel = wheel;
+		this.dist = dist;
+	}
+	void print(int meter){
+		dist += meter;
+		System.out.printf("나는 %s이고, %dm만큼 직진합니다. 이제까지 총 %dm만큼 직진했습니다. \n", getClass().getName(), meter, dist);
+	}
+}
+class Car extends Vehicle{
+	protected String make;
+	
+	Car(int wheel, int dist, String make){
+		super(wheel, dist);
+		this.make = make;
+	}
+	Car(){
+		this(4, 0, "현대자동차");
+	}
+}
+
+class Bike extends Vehicle{
+	Bike(int wheel, int dist){
+		super(wheel, dist);
+	}
+	Bike(){
+		this(2, 0);
+	}
+}
+
+class Garage{
+	protected int num;
+	
+	void park(Object o){
+		if(o instanceof Vehicle){
+			num++;
+			System.out.printf("%s를 차고에 주차했습니다.(총 %d대 주차됨)\n", o.getClass().getName(), num);
+		}
+		else{
+			System.out.printf("%s는 주차 불가입니다.(총 %d대 주차됨)\n", o.getClass().getName(), num);
+		}
+	}
+}
+
+class Stone{}
+
+class ParkTest{
+	public static void main(String [] args){
+		Vehicle [] vehicles = {new Bike(), new Bike(3, 50), new Bike(4, 1000), new Car(), new Car(4, 0, "벤츠"), new Car()};
+
+		Stone s = new Stone();
+		Garage g = new Garage();
+		
+		vehicles[0].print(30);
+		vehicles[2].print(30);
+		vehicles[4].print(30);
+		
+		for(Vehicle v : vehicles){
+			g.park(v);
+		}
+		
+		g.park(s);
+		g.park(g);
+	}
+}
